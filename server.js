@@ -1,4 +1,5 @@
 var express = require('express');
+var util = require('util');
 var app = express();
 
 var bodyParser = require('body-parser');
@@ -7,10 +8,12 @@ app.use(bodyParser.json());
 
 var db = require('./database');
 
+
 app.post('/', function (request, response) {
-    var query = request.body.query;
-    console.log('Query: ' + query);
     try {
+        var dateTimeNow = new Date();
+        var query = request.body.query;
+        console.log(util.format('%s: Query: %s', dateTimeNow.toString(), query));
         db.any(query)
             .then(function (rows) {
                 response.json(rows)
@@ -24,6 +27,7 @@ app.post('/', function (request, response) {
 });
 
 var port = process.env.PORT;
+// var port = 4000;
 app.listen(port, function () {
     console.log('Server running on http://localhost:' + port)
 });
