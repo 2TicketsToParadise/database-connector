@@ -1,5 +1,8 @@
 var pgp = require('pg-promise')();
 
+var dbConfig = process.env.DATABASE_URL;
+
+// Uncomment the below piece of code when running on Local
 // const dbConfig = {
 //     host: 'localhost',
 //     port: 5432,
@@ -7,8 +10,6 @@ var pgp = require('pg-promise')();
 //     user: 'postgres',
 //     password: ''
 // };
-
-var dbConfig = process.env.DATABASE_URL;
 
 var db = pgp(dbConfig);
 

@@ -7,16 +7,20 @@ app.use(bodyParser.json());
 
 var db = require('./database');
 
-app.get('/', function (request, response) {
-    var query = request.query.query;
+app.post('/', function (request, response) {
+    var query = request.body.query;
     console.log('Query: ' + query);
-    db.any(query)
-        .then(function (rows) {
-            response.json(rows)
-        })
-        .catch(function (errors) {
-            response.json(errors)
-        });
+    try {
+        db.any(query)
+            .then(function (rows) {
+                response.json(rows)
+            })
+            .catch(function (errors) {
+                response.json(errors)
+            });
+    } catch (exception) {
+        response.json(exception)
+    }
 });
 
 var port = process.env.PORT;
