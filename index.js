@@ -5,11 +5,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+var db = require('./database');
 
 // TODO: Add route here!
 app.get('/', function (request, response) {
-    // render the views/index.ejs template file
-    response.json({message: 'Hey there!'})
+    var query = 'select * from store';
+    db.any(query)
+        .then(function (rows) {
+            response.json(rows)
+        })
+        .catch(function (errors) {
+            response.json(errors)
+        })
 });
 
 var port = 4000;
