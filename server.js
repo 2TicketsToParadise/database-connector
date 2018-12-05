@@ -8,7 +8,6 @@ app.use(bodyParser.json());
 
 var db = require('./database');
 
-
 app.post('/', function (request, response) {
     try {
         var dateTimeNow = new Date();
@@ -16,7 +15,7 @@ app.post('/', function (request, response) {
         console.log(util.format('%s: Query: %s', dateTimeNow.toString(), query));
         db.any(query)
             .then(function (rows) {
-                response.json(rows)
+                response.json({success: true, data: rows})
             })
             .catch(function (errors) {
                 response.json({'error': errors.toString()});
