@@ -19,7 +19,7 @@ app.post('/', function (request, response) {
                 response.json(rows)
             })
             .catch(function (errors) {
-                response.json(errors)
+                response.json({'error': errors.toString()});
             });
     } catch (exception) {
         response.json(exception)
